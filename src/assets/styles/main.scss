@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  font-family: GirloyRegular;
+  src: local('Girloy-Regular'), url('../fonts/Gilroy-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: NekstBlack;
+  src: local('Nekst-Black'), url('../fonts/Nekst-Black.woff') format('woff');
+}
+
+.container {
+  width: 1345px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+

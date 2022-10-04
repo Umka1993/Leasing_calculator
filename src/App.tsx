@@ -1,26 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './assets/styles/main.scss';
+import './assets/styles/variables.scss';
+import {LeasingForm} from "./leasingForm/LeasingForm";
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className={'container'}>
+            <LeasingForm
+                headline={'Рассчитайте стоимость автомобиля в лизинг'}
+            />
+      </div>
   );
 }
 
-export default App;
+

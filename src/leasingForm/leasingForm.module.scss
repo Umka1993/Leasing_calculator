@@ -1,0 +1,195 @@
+.calculator{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .headline{
+    font-family: var(--nekst-black);
+    font-weight: 900;
+    font-size: 54px;
+    line-height: 90%;
+    font-style: normal;
+    max-width: 70%;
+    margin-bottom: 8px;
+  }
+  form{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 32px;
+    grid-row-gap: 44px;
+    width: 100%;
+
+    .inputItem{
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      label, {
+        font-family: var(--glory--regular);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: #575757;
+        padding: 24px 0;
+      }
+
+      .inputWrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 16px;
+        position: relative;
+
+        .naming{
+          position: absolute;
+          right: 67px;
+        }
+
+        span{
+          font-family: var(--nekst-black);
+          font-style: normal;
+          font-weight: 900;
+          font-size: 30px;
+          line-height: 36px;
+          color: #575757;
+        }
+        .firstPay{
+          flex: 1 1 80%;
+          background: #F3F3F4;
+          padding: 16px 24px;
+          border-radius: 16px;
+
+        }
+        .firstPayWrapper{
+          flex: 0 0 15%;
+          position: absolute;
+          top: 7px;
+          right: 7px;
+          width: fit-content;
+
+          .firstPayInput{
+            width: 69px;
+            height: 54px;
+            font-size: 20px;
+            text-align: center;
+            background: #EBEBEC;
+            border-radius: 16px;
+            &:focus{
+              background: white;
+              border: 2px solid #F3F3F4;
+            }
+          }
+          span{
+            font-size: 20px;
+            position: absolute;
+            top: 10px;
+            right: 4px;
+          }
+        }
+        .inputField{
+          background: #F3F3F4;
+          padding: 16px 24px;
+          border-radius: 16px;
+          &:focus{
+            background: transparent;
+            border: 2px solid #F3F3F4;
+          }
+        }
+
+      }
+
+      input{
+        font-family: var(--nekst-black);
+        font-style: normal;
+        font-weight: 900;
+        font-size: 30px;
+        line-height: 36px;
+        color: #575757;
+        border: none;
+        outline: none;
+        width: 90%;
+      }
+
+    }
+    .amount, .monthPay{
+      font-family: var(--nekst-black);
+      font-style: normal;
+      font-weight: 900;
+      font-size: 54px;
+      line-height: 90%;
+      color: #575757;
+      flex: 0 0 30% ;
+      display: flex;
+      flex-direction: column;
+      .label{
+        font-family: var(--glory--regular);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: #575757;
+        padding: 24px 0;
+      }
+    }
+
+    .sendButton{
+      background: #FF9514;
+      border-radius: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: end;
+      height: 68px;
+      span{
+        font-family: var(--nekst-black);
+        font-style: normal;
+        font-weight: 900;
+        font-size: 30px;
+        line-height: 36px;
+        color: #FFFFFF;
+      }
+
+      &__disabled{
+        background: rgba(255, 149, 20, 0.4);
+        border-radius: 40px;
+      }
+      button{
+        width: 100%;
+        background: none;
+        font-family: var(--nekst-black);
+        font-style: normal;
+        font-weight: 900;
+        font-size: 30px;
+        line-height: 36px;
+        color: #FFFFFF;
+        padding: 16px 0;
+        outline: none;
+        border: none;
+        border-radius: 40px;
+        &:hover{
+          background: #111111;
+        }
+        &:active{
+          background: #575757;
+        }
+
+      }
+      .loader {
+        border: 2px solid #FF9514; /* Light grey */
+        border-top: 2px solid #FFFFFF; /* Blue */
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+
+    }
+  }
+}
+
