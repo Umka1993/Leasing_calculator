@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useReducer, useState} from 'react';
 import s from './leasingForm.module.scss'
 import {InputRange} from "./inputRange/InputRange";
 import {ErrorMessage} from "./errorMessage/ErrorMessage";
@@ -15,27 +15,73 @@ interface IFieldHandler {
     setStateFunc: (arg:string)=>void,
     fieldName: 'price'| 'firstPay' | 'term'| ''
 }
-export interface IError {
-    errorValue: string,
-    rightValue: string,
-    errorMessage:string
-    errorFieldName: 'price'| 'firstPay' | 'term'| ''
+
+export enum Actions {
+    PRISE= 'prise',
+    FIRSTPAY = 'firstPay',
+    TERM='term'
+}
+export interface IAction {
+    type: Actions;
+    payload: string;
 }
 
+interface IInitialData {
+    prise: string,
+    firstPay:string,
+    term: string
+}
+// export interface IError {
+//     errorValue: string,
+//     rightValue: string,
+//     errorMessage:string
+//     errorFieldName: 'price'| 'firstPay' | 'term'| ''
+// }
+
 export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
-    const [firstPay, setFirstPay] = useState<string>("13")
-    const [term, setTerm] = useState<string>("60")
-    const [firstPayCounted, setFirstPayCounted] = useState<number>(0)
-    const [monthPayCounted, setMonthPayCounted] = useState<number>(0)
-    const [price, setPrice] = useState<string>("3300000")
-    const [amount, setAmount] = useState<number>(0)
-    const [error, setError]= useState<IError>({errorValue: '',
+    const [firstPay, setFirstPay] = useState("13")
+    const [term, setTerm] = useState("60")
+    const [firstPayCounted, setFirstPayCounted] = useState(0)
+    const [monthPayCounted, setMonthPayCounted] = useState(0)
+    const [price, setPrice] = useState("3300000")
+    const [amount, setAmount] = useState(0)
+    const [error, setError]= useState({errorValue: '',
         rightValue: '',
         errorMessage: '',
         errorFieldName: ''
     })
+    const initialData = {
+        prise: '3300000',
+        firstPay:"13",
+        term: '60'
+    }
+
     const [isPending, setIsPending] = useState<boolean>(false)
     const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
+    const [data, dispatch] = useReducer( reducer, initialData );
+
+    function reducer(data: IInitialData,action: IAction){
+        const {type, payload} = action
+        // debugger
+        switch (type){
+            case Actions.PRISE:
+                return {
+                    ...data,
+                    prise: payload
+                }
+            case Actions.FIRSTPAY:
+                return {
+                    ...data,
+                    firstPay: payload
+                }
+            case  Actions.TERM:
+                return {
+                    ...data,
+                    term: payload
+                }
+        }
+    }
+
 
 
 
@@ -89,6 +135,7 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
         isFinite(amount) ? setAmount(amount) : setAmount(0)
     }
 
+
     const sendData = async () =>{
         const data = {
             "car_coast": +price,
@@ -102,7 +149,6 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
             'Content-Type': 'application/json'
         };
         try {
-            console.log(data)
             setIsPending(true)
             const res =  await axios.post('https://hookb.in/eK160jgYJ6UlaRPldJ1P', data, { headers })
             if(res.data.success){
@@ -117,24 +163,33 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
 
         }
     }
-
-
     return (
         <div className={s.calculator}>
             <p className={s.headline}>{headline}</p>
             <form action="#" onSubmit={sendData}>
-                <div className={s.inputItem}>
+                <div className={`${s.inputItem} ${(isPending || isFulfilled) && s.inputItem__disabled}`}>
                     <label htmlFor="price">Стоимость автомобиля</label>
                     <div className={s.inputWrapper}>
-                        {error.errorFieldName === 'price' && <ErrorMessage errorMessage={error.errorMessage}/>}
+                        {Object.values(error).includes('price') && <ErrorMessage errorMessage={error.errorMessage}/>}
+                        {/*<input*/}
+                        {/*    type="text"*/}
+                        {/*    name={'price'}*/}
+                        {/*    id={'price'}*/}
+                        {/*    value={addSpacesToValue(price.toString())}*/}
+                        {/*    onChange={(e)=>setPrice(deleteSpacesOfValue(e.target.value))}*/}
+                        {/*    onBlur={()=>fieldHandler({value: price, min:1000000, max:6000000, fieldName:'price', setStateFunc:setPrice})}*/}
+                        {/*    className={s.inputField}*/}
+                        {/*    disabled={isPending}*/}
+                        {/*/>*/}
                         <input
                             type="text"
                             name={'price'}
                             id={'price'}
-                            value={addSpacesToValue(price.toString())}
-                            onChange={(e)=>setPrice(deleteSpacesOfValue(e.target.value))}
+                            value={addSpacesToValue(data.prise.toString())}
+                            onChange={(e)=>dispatch({type: Actions.PRISE, payload: e.target.value})}
                             onBlur={()=>fieldHandler({value: price, min:1000000, max:6000000, fieldName:'price', setStateFunc:setPrice})}
                             className={s.inputField}
+                            disabled={isPending}
                         />
                         <span className={s.naming}>₽</span>
                     </div>
@@ -144,29 +199,39 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
                         id={'price'}
                         min={'1000000'}
                         max={'6000000'}
-                        value={price}
-                        inputHandler={setPrice}
+                        value={data.prise}
+                        dispatch={dispatch}
+                        isPending={isPending}
+                        actionType={Actions.PRISE}
                     />
                 </div>
-                <div className={s.inputItem}>
+                <div className={`${s.inputItem} ${(isPending || isFulfilled) && s.inputItem__disabled}`}>
                     <label htmlFor="firstPay">Первоначальный взнос</label>
                     <div className={s.inputWrapper }>
-                        {error.errorFieldName === 'firstPay'&& <ErrorMessage errorMessage={error.errorMessage}/>}
+                        {Object.values(error).includes('firstPay') && <ErrorMessage errorMessage={error.errorMessage}/>}
                         <span className={s.firstPay}>{addSpacesToValue(firstPayCounted.toString())} ₽</span>
                         <div className={s.firstPayWrapper}>
+                            {/*<input*/}
+                            {/*    type="text"*/}
+                            {/*    name={'firstPay'}*/}
+                            {/*    id={'firstPay'}*/}
+                            {/*    value={firstPay.concat('%')}*/}
+                            {/*    onChange={(e)=>setFirstPay((e.target.value.replace(/[^0-9]/g,"")))}*/}
+                            {/*    className={s.firstPayInput}*/}
+                            {/*    onBlur={()=>fieldHandler({value:firstPay,min:10,max:60,fieldName:'firstPay',setStateFunc:setFirstPay})}*/}
+                            {/*    disabled={isPending}*/}
+                            {/*/>*/}
                             <input
                                 type="text"
                                 name={'firstPay'}
                                 id={'firstPay'}
-                                value={firstPay.concat('%')}
-                                onChange={(e)=>setFirstPay((e.target.value.replace(/[^0-9]/g,"")))}
+                                value={data.firstPay.concat('%')}
+                                onChange={(e)=>dispatch({type: Actions.FIRSTPAY, payload: e.target.value.replace(/[^0-9]/g,"")})}
                                 className={s.firstPayInput}
                                 onBlur={()=>fieldHandler({value:firstPay,min:10,max:60,fieldName:'firstPay',setStateFunc:setFirstPay})}
+                                disabled={isPending}
                             />
-
-
                         </div>
-
                     </div>
 
                     <InputRange
@@ -175,13 +240,15 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
                         min={'10'}
                         max={'60'}
                         value={firstPay}
-                        inputHandler={setFirstPay}
+                        dispatch={dispatch}
+                        isPending={isPending}
+                        actionType={Actions.FIRSTPAY}
                     />
                 </div>
-                <div className={s.inputItem}>
+                <div className={`${s.inputItem} ${(isPending || isFulfilled) && s.inputItem__disabled}`}>
                     <label htmlFor="term">Срок лизинга</label>
                     <div className={s.inputWrapper}>
-                        {error.errorFieldName === 'term' && <ErrorMessage errorMessage={error.errorMessage}/>}
+                        {Object.values(error).includes('term') && <ErrorMessage errorMessage={error.errorMessage}/>}
                         <input
                             type="text"
                             name={'term'}
@@ -190,6 +257,7 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
                             onChange={(e)=>setTerm(e.target.value)}
                             onBlur={()=>fieldHandler({value:term, min:1, max: 60, fieldName: 'term',setStateFunc: setTerm})}
                             className={s.inputField}
+                            disabled={isPending}
                         />
                         <span className={s.naming}>мес.</span>
                     </div>
@@ -201,6 +269,7 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
                         max={'60'}
                         value={term}
                         inputHandler={setTerm}
+                        isPending={isPending}
                     />
                 </div>
 

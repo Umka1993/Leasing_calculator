@@ -23,6 +23,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
+
       label, {
         font-family: var(--glory--regular);
         font-style: normal;
@@ -31,6 +32,8 @@
         line-height: 20px;
         color: #575757;
         padding: 24px 0;
+        cursor: pointer;
+
       }
 
       .inputWrapper{
@@ -58,7 +61,7 @@
           background: #F3F3F4;
           padding: 16px 24px;
           border-radius: 16px;
-
+          cursor: default;
         }
         .firstPayWrapper{
           flex: 0 0 15%;
@@ -110,6 +113,12 @@
         width: 90%;
       }
 
+      &__disabled{
+        *{
+          opacity: 0.5;
+        }
+      }
+
     }
     .amount, .monthPay{
       font-family: var(--nekst-black);
@@ -121,6 +130,8 @@
       flex: 0 0 30% ;
       display: flex;
       flex-direction: column;
+      cursor: default;
+
       .label{
         font-family: var(--glory--regular);
         font-style: normal;
@@ -168,6 +179,7 @@
         border-radius: 40px;
         &:hover{
           background: #111111;
+          cursor: pointer;
         }
         &:active{
           background: #575757;
