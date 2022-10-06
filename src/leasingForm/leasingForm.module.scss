@@ -3,6 +3,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media screen and (max-width: 1024px) {
+    height: auto;
+    padding: 100px 0;
+
+  }
   .headline{
     font-family: var(--nekst-black);
     font-weight: 900;
@@ -11,18 +16,34 @@
     font-style: normal;
     max-width: 70%;
     margin-bottom: 8px;
+    @media screen and (max-width: 1024px) {
+      max-width: 100%;
+    }
+    @media screen and (max-width: 767px) {
+      font-size: 34px;
+    }
   }
   form{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 32px;
-    grid-row-gap: 44px;
+    gap: 32px;
     width: 100%;
+    @media screen and (max-width: 1439px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (max-width: 767px) {
+      grid-row-gap: 16px;
+    }
 
     .inputItem{
       display: flex;
       flex-direction: column;
       position: relative;
+      @media screen and (max-width: 1439px) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+
 
       label, {
         font-family: var(--glory--regular);
@@ -33,6 +54,11 @@
         color: #575757;
         padding: 24px 0;
         cursor: pointer;
+        @media screen and (max-width: 767px) {
+          font-size: 14px;
+          padding: 8px 0;
+
+        }
 
       }
 
@@ -42,10 +68,28 @@
         align-items: center;
         border-radius: 16px;
         position: relative;
+        input{
+          font-family: var(--nekst-black);
+          font-style: normal;
+          font-weight: 900;
+          font-size: 30px;
+          line-height: 36px;
+          color: #575757;
+          border: none;
+          outline: none;
+          width: 100%;
+          @media screen and (max-width: 767px) {
+            font-size: 22px;
+          }
+        }
 
         .naming{
           position: absolute;
-          right: 67px;
+          right: 24px;
+          @media screen and (max-width: 767px) {
+            right: 20px;
+            font-size: 22px;
+          }
         }
 
         span{
@@ -62,6 +106,9 @@
           padding: 16px 24px;
           border-radius: 16px;
           cursor: default;
+          @media screen and (max-width: 767px) {
+            font-size: 22px;
+          }
         }
         .firstPayWrapper{
           flex: 0 0 15%;
@@ -101,17 +148,7 @@
 
       }
 
-      input{
-        font-family: var(--nekst-black);
-        font-style: normal;
-        font-weight: 900;
-        font-size: 30px;
-        line-height: 36px;
-        color: #575757;
-        border: none;
-        outline: none;
-        width: 90%;
-      }
+
 
       &__disabled{
         *{
@@ -131,7 +168,11 @@
       display: flex;
       flex-direction: column;
       cursor: default;
-
+      @media screen and (max-width: 767px) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        font-size: 22px;
+      }
       .label{
         font-family: var(--glory--regular);
         font-style: normal;
@@ -140,6 +181,19 @@
         line-height: 20px;
         color: #575757;
         padding: 24px 0;
+        @media screen and (max-width: 767px) {
+          font-size: 14px;
+        }
+      }
+    }
+    .amount{
+      @media screen and (max-width: 1024px) {
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
+      @media screen and (max-width: 767px) {
+        grid-column-start: 1;
+        grid-column-end: 3;
       }
     }
 
@@ -177,6 +231,9 @@
         outline: none;
         border: none;
         border-radius: 40px;
+        @media screen and (max-width: 767px) {
+          font-size: 22px;
+        }
         &:hover{
           background: #111111;
           cursor: pointer;
@@ -187,8 +244,8 @@
 
       }
       .loader {
-        border: 2px solid #FF9514; /* Light grey */
-        border-top: 2px solid #FFFFFF; /* Blue */
+        border: 2px solid #FF9514;
+        border-top: 2px solid #FFFFFF;
         border-radius: 50%;
         width: 30px;
         height: 30px;
@@ -200,7 +257,11 @@
         100% { transform: rotate(360deg); }
       }
 
-
+      @media screen and (max-width: 767px) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        margin-top: 32px;
+      }
     }
   }
 }

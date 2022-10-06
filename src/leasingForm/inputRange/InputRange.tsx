@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import s from './inputRange.module.scss'
-import {Actions, IAction} from "../LeasingForm";
+import {Actions, IAction} from "../../types";
 
 interface IInputRange {
     name:string,
@@ -11,9 +11,21 @@ interface IInputRange {
     actionType: Actions
     dispatch: (arg:IAction)=>void,
     isPending: boolean
+    isFulfilled: boolean
 }
 
-export const InputRange:FC<IInputRange> = ({name,id,min,max,value,dispatch, isPending, actionType}) => {
+export const InputRange:FC<IInputRange> = ({isFulfilled, name,id,min,max,value,dispatch, isPending, actionType}) => {
+    const [rangeTrackSize, setRangeTrackSize] = useState(((+value - +min) * 100 / (+max - +min)))
+
+    const inputRangeHandler = (val:string)=>{
+        setRangeTrackSize(((+value - +min) * 100 / (+max - +min)))
+        dispatch({type:actionType, payload:val})
+    }
+
+    useEffect( ()=>{
+        inputRangeHandler(value)
+    },[value])
+
     return (
         <>
             <input
@@ -23,9 +35,13 @@ export const InputRange:FC<IInputRange> = ({name,id,min,max,value,dispatch, isPe
                 min={min}
                 max={max}
                 value={value}
-                onChange={(e)=>dispatch({type:actionType, payload:e.target.value})}
+                onChange={(e)=>inputRangeHandler(e.target.value)}
                 className={s.inputRange}
-                disabled={isPending}
+                disabled={isPending || isFulfilled}
+                style={{
+                     backgroundSize: `${rangeTrackSize}% 100%`
+                }}
+
             />
         </>
     );

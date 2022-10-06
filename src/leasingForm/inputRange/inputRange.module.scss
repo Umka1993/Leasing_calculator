@@ -1,63 +1,86 @@
 .inputRange {
-  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-  max-width: 85%;
-  background: transparent;
-  position: absolute;
-  bottom: 0;
-  left: 24px;
+    -webkit-appearance: none;
+    margin-left: 24px;
+    width: calc(90% - 24px);
+    height: 2px;
+    background-color: #E1E1E1;
+    border-radius: 5px;
+    background-image: linear-gradient(var(--input-rangeColor) var(--input-rangeColor));
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+
+
+  /* Input Thumb */
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-  }
-  &:focus {
-    outline: none;
-  }
-  &::-ms-track {
-    width: 100%;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-  }
-  //settings for thumb
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     border-radius: 50%;
-    background: #FF9514;
-    cursor: pointer;
-    margin-top: -10px;
+    background: var(--input-rangeColor);
+    cursor: ew-resize;
+    transition: background .3s linear;
+    border: none;
+    outline: none;
   }
 
   &::-moz-range-thumb {
+    -webkit-appearance: none;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #FF9514;
-    cursor: pointer;
+    background: var(--input-rangeColor);
+    cursor: ew-resize;
+    transition: background .3s linear;
+    border: none;
+    outline: none;
   }
 
   &::-ms-thumb {
+    -webkit-appearance: none;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #FF9514;
-    cursor: pointer;
+    background: var(--input-rangeColor);
+    cursor: ew-resize;
+    transition: background .3s linear;
+    border: none;
+    outline: none;
   }
 
-  //settings for track
-  &::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 2px;
-    cursor: pointer;
-    background: #FF9514;
+  &::-webkit-slider-thumb:hover {
+    background: var(--input-rangeColor);
+  }
+
+  &::-moz-range-thumb:hover {
+    background: var(--input-rangeColor);
+  }
+
+  &::-ms-thumb:hover {
+    background: var(--input-rangeColor);
+  }
+
+  ///* Input Track */
+  &::-webkit-slider-runnable-track  {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
   }
 
   &::-moz-range-track {
-    width: 100%;
-    height: 2px;
-    cursor: pointer;
-    background: #FF9514;
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+
+  &::-ms-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
   }
 
 }
