@@ -16,7 +16,6 @@ export interface IInitialData {
 export interface IFieldHandler {
     min: number,
     max: number,
-    dispatch: (arg:IAction)=>void,
     action: IAction
 }
 

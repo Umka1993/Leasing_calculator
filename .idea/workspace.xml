@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d6826d3-2756-423f-939b-9518a9c811ec" name="Changes" comment="finish">
-      <change afterPath="$PROJECT_DIR$/src/api/baseRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helpers/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/assets/styles/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/styles/variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leasingForm/LeasingForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/leasingForm/LeasingForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/leasingForm/inputRange/InputRange.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/leasingForm/inputRange/InputRange.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/leasingForm/errorMessage/errorMessage.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/leasingForm/errorMessage/errorMessage.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leasingForm/inputRange/inputRange.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/leasingForm/inputRange/inputRange.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leasingForm/leasingForm.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/leasingForm/leasingForm.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +80,8 @@
       <updated>1664533958547</updated>
       <workItem from="1664533960147" duration="5000" />
       <workItem from="1664533983964" duration="64168000" />
-      <workItem from="1664964890224" duration="27133000" />
+      <workItem from="1664964890224" duration="32925000" />
+      <workItem from="1665400626048" duration="3326000" />
     </task>
     <task id="LOCAL-00001" summary="desktop finish">
       <created>1664908756759</created>
@@ -97,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664965667583</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="finish">
+      <created>1665053566249</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1665053566249</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

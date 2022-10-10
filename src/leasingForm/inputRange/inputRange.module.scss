@@ -5,11 +5,11 @@
     height: 2px;
     background-color: #E1E1E1;
     border-radius: 5px;
-    background-image: linear-gradient(var(--input-rangeColor) var(--input-rangeColor));
+    background-image: linear-gradient(#FF9514, #FF9514);
     background-repeat: no-repeat;
     position: absolute;
     bottom: 0;
-    left: 24px;
+    left: 0;
 
 
   /* Input Thumb */
@@ -19,7 +19,7 @@
     width: 16px;
     border-radius: 50%;
     background: var(--input-rangeColor);
-    cursor: ew-resize;
+    cursor: pointer;
     transition: background .3s linear;
     border: none;
     outline: none;
@@ -31,7 +31,7 @@
     width: 20px;
     border-radius: 50%;
     background: var(--input-rangeColor);
-    cursor: ew-resize;
+    cursor: pointer;
     transition: background .3s linear;
     border: none;
     outline: none;
@@ -43,7 +43,7 @@
     width: 20px;
     border-radius: 50%;
     background: var(--input-rangeColor);
-    cursor: ew-resize;
+    cursor: pointer;
     transition: background .3s linear;
     border: none;
     outline: none;

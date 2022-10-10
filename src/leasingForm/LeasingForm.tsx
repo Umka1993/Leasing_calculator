@@ -5,6 +5,7 @@ import {ErrorMessage} from "./errorMessage/ErrorMessage";
 import {addSpacesToValue, deleteSpacesOfValue, reducer} from "../helpers";
 import {Actions, IFieldHandler} from "../types";
 import {api} from "../api/baseRequest";
+import {logDOM} from "@testing-library/react";
 
 interface ILeasingForm {
     headline: string
@@ -43,23 +44,15 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
 
 
 
-    const errorFieldHandler =({min,max,action,dispatch}:IFieldHandler):void =>{
-        const {type, payload} = action
-        const handledValue = Math.min(Math.max(Number(payload), min), max)
-        dispatch({type: type,payload: handledValue.toString()})
-        if(payload !== handledValue.toString()){
-            setError({
-                rightValue: handledValue.toString(),
-                errorValue: payload,
-                errorMessage: `Введенное вами значение автоматически было округлено до ${addSpacesToValue(handledValue.toString())}`,
-                errorFieldName: type
-            })
 
-            setTimeout( ()=>setError({errorValue: '',
-                rightValue: '',
-                errorMessage: '',
-                errorFieldName: ''
-            }), 5000)
+    const errorFieldHandler =({min,max,action}:IFieldHandler):void =>{
+        const {type, payload} = action
+        const handledValue = Math.min(Math.max(Number(deleteSpacesOfValue(payload)), min), max)
+        if(payload !== handledValue.toString()){
+            dispatch({type: type,payload: handledValue.toString()})
+        }else {
+            dispatch({type: type,payload: payload.toString()})
+
         }
     }
 
@@ -80,8 +73,6 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
         const amount = Math.ceil(firstPayCounted + (+data.term) * monthPayCounted)
         isFinite(amount) ? setAmount(amount) : setAmount(0)
     }
-
-
     const sendData = async () =>{
         const readyData = {
             "car_coast": +data.price,
@@ -120,13 +111,13 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
                             id={'price'}
                             value={addSpacesToValue(data.price.toString())}
                             onChange={(e)=>dispatch({type: Actions.PRICE, payload: deleteSpacesOfValue(e.target.value)})}
-                            onBlur={()=>errorFieldHandler({min:1000000, max:6000000, dispatch:dispatch,  action: {type: Actions.PRICE, payload: data.price}})}
                             className={s.inputField}
                             disabled={isPending || isFulfilled}
+                            maxLength={9}
+                            onBlur={(e)=>errorFieldHandler({
+                                    min:1000000, max:6000000, action: {type: Actions.PRICE, payload: e.target.value}})}
                         />
-                        <span className={s.naming}>₽</span>
                     </div>
-
                     <InputRange
                         name={'price'}
                         id={'price'}
@@ -152,8 +143,9 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
                                 value={data.firstPay.concat('%')}
                                 onChange={(e)=>dispatch({type: Actions.FIRSTPAY, payload: e.target.value.replace(/[^0-9]/g,"")})}
                                 className={s.firstPayInput}
-                                onBlur={()=>errorFieldHandler({min:10,max:60,dispatch:dispatch, action: {type: Actions.FIRSTPAY, payload: data.firstPay}})}
+                                onBlur={()=>errorFieldHandler({min:10,max:60, action: {type: Actions.FIRSTPAY, payload: data.firstPay}})}
                                 disabled={isPending || isFulfilled}
+                                maxLength={3}
                             />
                         </div>
                     </div>
@@ -180,9 +172,10 @@ export const LeasingForm: FC<ILeasingForm> = ({headline}) => {
                             id={'term'}
                             value={data.term}
                             onChange={(e)=>dispatch({type:Actions.TERM, payload:e.target.value})}
-                            onBlur={()=>errorFieldHandler({ min:1, max: 60,dispatch: dispatch, action:{type:Actions.TERM, payload:data.term}})}
+                            onBlur={()=>errorFieldHandler({ min:1, max: 60, action:{type:Actions.TERM, payload:data.term}})}
                             className={s.inputField}
                             disabled={isPending || isFulfilled}
+                            maxLength={2}
                         />
                         <span className={s.naming}>мес.</span>
                     </div>
